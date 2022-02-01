@@ -1,179 +1,119 @@
-// Utiliser les opérateurs de comparaison
-let x = 4;
-let y = 0;
+// Présentation des fonctions JavaScript
+// Présentation des fonctions JavaScript prédéfinies
+let prez = 'Bonjour, je suis Pierre';
 
-let test1 = x == 4;
-let test2 = x === 4;
-let test3 = x == '4';
-let test4 = x === '4';
-let test5 = x != '4';
-let test6 = x != '4';
-let test7 = x > 4;
-let test8 = x >= 4;
-let test9 = x < 4;
+document.getElementById('p1').innerHTML = Math.random();
 
-document.getElementById('p1').innerText = 'Valeur dans x égale à 4 (en valeur) ? : ' + test1;
-document.getElementById('p2').innerText = 'Valeur dans x égale à 4 (en valeur & type) ? : ' + test2;
-document.getElementById('p3').innerText = 'Valeur dans x égale à "4" (en valeur) ? : ' + test3;
-document.getElementById('p4').innerText = 'Valeur dans x égale à "4" (en valeur & type) ? : ' + test4;
-document.getElementById('p5').innerText = 'Valeur dans x différente à "4" (en valeur) ? : ' + test5;
-document.getElementById('p6').innerText = 'Valeur dans x différente à "4" (en valeur & type) ? : ' + test6;
-document.getElementById('p7').innerText = 'Valeur dans x strictement supérieure à 4 (en valeur) ? : ' + test7;
-document.getElementById('p8').innerText = 'Valeur dans x supérieure à 4 (en valeur) ? : ' + test8;
-document.getElementById('p9').innerText = 'Valeur dans x strictement inférieure à 4 (en valeur) ? : ' + test9;
+let prez2 = prez.replace('Pierre', 'Mathilde');
+document.getElementById('p2').innerHTML = prez2;
 
-// La condition if en JavaScript
-let result;
-if (x > 1) {
-    result = 'x contient une valeur supérieure à 1';
+// Les fonctions personnalisées
+function aleatoire() {
+    return Math.round(Math.random() * 100);
 }
 
-if (x == y) {
-    result += 'x et y contiennent la même valeur';
+function multiplication(n1, n2) {
+    return n1 + ' * ' + n2 + ' = ' + (n1 * n2);
 }
 
-if (y) {
-    result = 'La valeur de y est évaluée à true';
+document.getElementById('p3').innerHTML = aleatoire();
+document.getElementById('p4').innerHTML = multiplication(aleatoire(), aleatoire());
+
+//  Portée des variables et valeurs de retour des fonctions
+// Illustration de la notion de portée des variables en JavaScript : exemple pratique
+let z = 5;
+var a = 10;
+
+function portee1() {
+    document.getElementById('p5').innerHTML = 'Depuis la portee1() : <br> a = ' + a + '<br> z = ' + z;
 }
 
-document.getElementById('p10').innerText = result;
-
-// Inverser la valeur logique d’un test
-let resultText;
-if ((x > 1) == false) {
-    resultText = 'x contient une valeur supérieure à 1';
+function portee2() {
+    let y = 1;
+    var b = 2;
+    document.getElementById('p6').innerHTML = 'Depuis la portee2() : <br> b = ' + b + '<br> y = ' + y;
 }
 
-if ((x == y) == false) {
-    if (!resultText) {
-        resultText = 'x et y contiennent la même valeur';
+function portee3() {
+    let z = 20;
+    var a = 40;
+    document.getElementById('p7').innerHTML = 'Depuis la portee2() : <br> a = ' + a + '<br> z = ' + z;
+}
+
+portee1();
+portee2();
+portee3();
+
+document.getElementById('p8').innerHTML = 'Depuis l\'espace global : <br> a = ' + a + '<br> z = ' + z;
+//document.getElementById('p9').innerHTML = 'Depuis l\'espace global : <br> b = ' + b + '<br> y = ' + y;
+
+// Les différences de portée entre les variables var et let en JavaScript
+function portee4() {
+    let x = 1;
+    var c = 2;
+    if (true) {
+        let x = 5;
+        var c = 10;
+        document.getElementById('p10').innerHTML = 'x (dans if) = ' + x;
+        document.getElementById('p11').innerHTML = 'c (dans if) = ' + c;
+    }
+    document.getElementById('p12').innerHTML = 'x (hors if) = ' + x;
+    document.getElementById('p13').innerHTML = 'c (hors if) = ' + c;
+}
+
+portee4();
+
+// Les valeurs de retour des fonctions
+let resultatReplace = prez.replace('jour', 'soir');
+document.getElementById('p14').innerHTML = resultatReplace + ' Giraud';
+
+function div(a, b) {
+    if (b == 0) {
+        return 'Division par 0 impossible';
     } else {
-        resultText += '\nx et y contiennent la même valeur';
+        return a/b;
+        alert('Ce message ne s\'affiche jamais');
     }
 }
 
-if (y == false) {
-    if (!resultText) {
-        resultText = 'La valeur de y est évaluée à true';
+// let nombre1 = prompt('Entrez un premier nombre');
+// let nombre2 = prompt('Entrez un deuxième nombre');
+//
+// let resultatDiv = div(nombre1, nombre2);
+let resultatDiv = div(aleatoire(),aleatoire());
+
+document.getElementById('p15').innerHTML = resultatDiv;
+
+// Fonctions anonymes, auto-invoquées et récursives
+// Création et exécution ou appel d’une fonction anonyme
+// Exécuter une fonction anonyme en utilisant une variable
+let alerte = function() {
+    alert('Aie');
+}
+
+alerte();
+
+// Auto-invoquer une fonction anonyme
+// Fonction anonyme auto-invoquée
+(function (){alerte('Aie')})();
+// Fonction nommée auto-invoquée
+(function bonjour(){alerte('Aie')})();
+
+// Exécuter une fonction anonyme lors du déclenchement d’un évènement
+let para1 = document.getElementById('p16');
+let para2 = document.getElementById('p17');
+
+para1.addEventListener('click', function (){alert('Clic sur p id=p16');});
+para2.addEventListener('click', function (){alert('Clic sur p id=p17');});
+
+// Les fonctions récursives
+function decompte(t) {
+    if (t > 0) {
+        document.getElementById('p18').innerHTML += t + '<br>';
+        return decompte(t - 1);
     } else {
-        resultText += '\nLa valeur de y est évaluée à true';
+        return t;
     }
-}
+};
 
-document.getElementById('p11').innerText = resultText;
-
-// Présentation et utilisation des opérateurs logiques
-let v = 5;
-let w = -20;
-
-if (v >= 0 && v <= 10) {
-    document.getElementById('p12').innerHTML = 'x contient une valeur comprise entre 0 et 10';
-}
-
-if (w < -10 || w > 10) {
-    document.getElementById('p13').innerHTML = 'y contient une valeur plus petite que -10 ou plus grande que 10';
-}
-
-if (!(x <= 2)) {
-    document.getElementById('p14').innerHTML = 'x contient une valeur strictement supérieure à 2';
-}
-
-// Syntaxe et exemple utilisation du switch en JavaScript
-let u = 15;
-let switchValue = 'u stocke la valeur ';
-
-switch (u) {
-    case 2 :
-        switchValue += u;
-        document.getElementById('p15').innerHTML = switchValue;
-        break;
-    case 5 :
-        switchValue += u;
-        document.getElementById('p15').innerHTML = switchValue;
-        break;
-    case 10 :
-        switchValue += u;
-        document.getElementById('p15').innerHTML = switchValue;
-        break;
-    case 15 :
-        switchValue += u;
-        document.getElementById('p15').innerHTML = switchValue;
-        break;
-    case 20 :
-        switchValue += u;
-        document.getElementById('p15').innerHTML = switchValue;
-        break;
-    default:
-        document.getElementById('p15').innerHTML = 'x ne stocke ni 2, ni 5, ni 10, ni 20';
-}
-
-/* Sans break, le JavaScript continuerait à tester les différents autres case du switch même si un case égal à
- la valeur de la variable a été trouvé, ce qui ralentirait inutilement le code et pourrait produire des comportements
- non voulus.
- */
-
-// Présentation des boucles et opérateurs d’incrémentation et de décrémentation
-// Les opérateurs d’incrémentation et de décrémentation
-let a = 10, b = 10, c = 20, d = 20;
-
-document.getElementById('p16').innerHTML = 'a stocke la valeur ' + a++;
-document.getElementById('p17').innerHTML = 'b stocke la valeur ' + ++b;
-document.getElementById('p18').innerHTML = 'c stocke la valeur ' + c--;
-document.getElementById('p19').innerHTML = 'd stocke la valeur ' + --d;
-document.getElementById('p20').innerHTML =
-    'a = ' + a + ', b = ' + b + ', c = ' + c + ', d = ' + d;
-
-// Les boucles while, do…while, for et for…in et les instructions break et continue
-// La boucle JavaScript while
-let e = 0;
-while (e < 10) {
-    document.getElementById('p21').innerHTML +=
-        'e stocke la valeur ' + e + ' lors du passage ' + (e+1) + ' dans la boucle <br>';
-    e++;
-}
-
-// La boucle JavaScript do… while
-let s = 0;
-let f = 10, t =10;
-
-do {
-    document.getElementById('p22').innerHTML +=
-        's stocke la valeur ' + s + ' lors du passage ' + (s+1) + ' dans la boucle <br>';
-    s++;
-} while (s < 10);
-
-while (f < 10) {
-    document.getElementById('p23').innerHTML +=
-        'f stocke la valeur ' + f + ' lors du passage ' + (f+1) + ' dans la boucle <br>';
-    f++
-}
-
-do {
-    document.getElementById('p24').innerHTML +=
-        't stocke la valeur ' + t + ' lors du passage ' + (t+1) + ' dans la boucle <br>';
-    t++;
-} while (t < 10);
-
-// La boucle JavaScript for
-for (let i = 0; i < 10; i++) {
-    document.getElementById('p25').innerHTML +=
-        'i stocke la valeur ' + i + ' lors du passage ' + (i+1) + ' dans la boucle <br>';
-}
-
-// Utiliser une instruction continue pour passer directement à l’itération suivante d’une boucle
-for (let i = 0; i < 10; i++) {
-    if (i % 2 != 0) {
-        continue;
-    }
-    document.getElementById('p26').innerHTML +=
-        'i stocke la valeur ' + i + ' lors du passage ' + (i+1) + ' dans la boucle <br>';
-}
-
-// Utiliser une instruction break pour sortir prématurément d’une boucle
-for (let i = 0; i < 100; i++) {
-    if (i == 13) {
-        break;
-    }
-    document.getElementById('p27').innerHTML +=
-        'i stocke la valeur ' + i + ' lors du passage ' + (i+1) + ' dans la boucle <br>';
-}
+decompte(7);
