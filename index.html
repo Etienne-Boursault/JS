@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Valeurs primitives et objets Globaux</title>
+    <title>Browser Object Model</title>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, user-scalable=no"
           name="viewport">
@@ -9,166 +9,45 @@
     <script async src="javascript/script.js"></script>
 </head>
 <body>
-<h1>Valeurs primitives et objets Globaux</h1>
-<h2>Définition des valeurs primitives et différence avec les objets</h2>
-<strong>Différence notable entre valeurs primitives et objets : les valeurs primitives sont passées et
-    comparées par valeur tandis que les objets sont passés et comparés par référence.</strong>
+<h1>APIs, Browser Object Model et interface Window</h1>
+<h2>Propriétés, méthodes et fonctionnement de l’objet Window</h2>
+<h3>Les propriétés de l’objet Window</h3>
 <p id="p1"></p>
 <p id="p2"></p>
+<h3>Les méthodes de Window</h3>
+<h4>Ouvrir, fermer, redimensionner ou déplacer une fenêtre</h4>
+<button id="b1">window.open</button>
+<button id="b2">window.resizeBy</button>
+<button id="b3">window.resizeTo</button>
+<button id="b4">window.moveBy</button>
+<button id="b5">window.moveTo</button>
+<button id="b6">window.scrollBy</button>
+<button id="b7">window.scrollTo</button>
+<button id="b8">window.close</button>
+<h4>Afficher des boites de dialogue dans une fenêtre</h4>
+<button id="b9">confirm</button>
+<h1>Interface et objet Navigator et géolocalisation</h1>
+<h2>Les propriétés et méthodes de Navigator</h2>
 <p id="p3"></p>
+<h2>L’interface et l’objet Geolocation</h2>
 <p id="p4"></p>
-<h2>Valeur primitive ou objet : que préférer ?</h2>
 <p id="p5"></p>
+<h1>Interface et objet History</h1>
+<h2>Les propriétés et méthodes de History</h2>
 <p id="p6"></p>
+<button id="b10">Deux pages en arrières dans l'historique</button>
+<button id="b11">Vers la page précédente dans l'historique</button>
+<button id="b12">Vers la page suivante dans l'historique</button>
+<h1>Interface et objet Location</h1>
+<h2>Les propriétés et méthode de l’objet Location</h2>
+<button id="b13">Recharger la page</button>
+<button id="b14">Charger un nouveau document</button>
+<button id="b15">Remplacer le document</button>
+<h1>Interface et objet Screen</h1>
+<h2>Les propriétés et méthodes de l’objet Screen</h2>
 <p id="p7"></p>
-<p id="p8"></p>
-<p id="p9"></p>
-<p id="p10"></p>
-<h1>Propriétés et méthodes de l’objet global String</h1>
-<h2>Les propriétés de l’objet String</h2>
-<p id="p11"></p>
-<p id="p12"></p>
-<p id="p13"></p>
-<h2>Les méthodes de l’objet String</h2>
-<h3>La méthode includes()</h3>
-<p id="p14"></p>
-<p id="p15"></p>
-<h3>Les méthodes startsWith() et endsWith()</h3>
-<p id="p16"></p>
-<p id="p17"></p>
-<h3>La méthode substring()</h3>
-<p id="p18"></p>
-<p id="p19"></p>
-<p id="p20"></p>
-<h3>Les méthodes indexOf() et lastIndexOf()</h3>
-<p id="p21"></p>
-<p id="p22"></p>
-<p id="p23"></p>
-<h3>La méthode slice()</h3>
-<p id="p24"></p>
-<p id="p25"></p>
-<p id="p26"></p>
-<h3>La méthode replace()</h3>
-<p id="p27"></p>
-<p id="p28"></p>
-<h3>Les méthodes toLowerCase() et toUpperCase()</h3>
-<p id="p29"></p>
-<p id="p30"></p>
-<h3>La méthode trim()</h3>
-<p id="p31"></p>
-<pre>
-    <p id="p32"></p>
-</pre>
-<h1>Propriétés et méthodes de l’objet global Number</h1>
-<h2>Les propriétés de l’objet Number</h2>
-<p id="p33"></p>
-<h2>Les méthodes de l’objet Number</h2>
-<h3>La méthode isFinite()</h3>
-<p id="p34"></p>
-<p id="p35"></p>
-<h3>La méthode isInteger()</h3>
-<p id="p36"></p>
-<p id="p37"></p>
-<h3>La méthode isNaN()</h3>
-<p id="p38"></p>
-<p id="p39"></p>
-<h3>La méthode isSafeInteger()</h3>
-<p id="p40"></p>
-<p id="p41"></p>
-<h3>La méthode parseFloat()</h3>
-<p id="p42"></p>
-<p id="p43"></p>
-<p id="p44"></p>
-<h3>La méthode parseInt()</h3>
-<p id="p45"></p>
-<p id="p46"></p>
-<p id="p47"></p>
-<h3>La méthode toFixed()</h3>
-<p id="p48"></p>
-<p id="p49"></p>
-<p id="p50"></p>
-<h3>La méthode toPrecision()</h3>
-<p id="p51"></p>
-<p id="p52"></p>
-<p id="p53"></p>
-<h3>La méthode toString()</h3>
-<p id="p54"></p>
-<p id="p55"></p>
-<p id="p56"></p>
-<h1>Propriétés et méthodes de l’objet global Math</h1>
-<h2>Les propriétés de l’objet Math</h2>
-<p id="p57"></p>
-<h2>Les méthodes de l’objet Math</h2>
-<h3>Les méthodes floor(), ceil(), round() et trunc()</h3>
-<p id="p58"></p>
-<p id="p59"></p>
-<p id="p60"></p>
-<h3>La méthode random()</h3>
-<p id="p61"></p>
-<p id="p62"></p>
-<p id="p63"></p>
-<h3>Les méthodes min() et max()</h3>
-<p id="p64"></p>
-<p id="p65"></p>
-<p id="p66"></p>
-<h3>La méthode abs()</h3>
-<p id="p67"></p>
-<p id="p68"></p>
-<p id="p69"></p>
-<h3>Les méthodes cos(), sin(), tan(), acos(), asin() et atan()</h3>
-<p id="p70"></p>
-<p id="p71"></p>
-<p id="p72"></p>
-<h3>Les méthodes exp() et log()</h3>
-<p id="p73"></p>
-<p id="p74"></p>
-<p id="p75"></p>
-<h1>Présentation des tableaux et de l’objet global Array</h1>
-<strong>Le JavaScript ne gère qu’un type de tableau : les tableaux numérotés.</strong>
-<h2>Accéder à une valeur dans un tableau</h2>
-<p id="p76"></p>
-<p id="p77"></p>
-<p id="p78"></p>
-<h2>Utiliser une boucle for…of pour parcourir toutes les valeurs d’un tableau</h2>
-<p id="p79"></p>
-<h2>Tableaux associatifs en JavaScript, objets littéraux et boucle for… in</h2>
-<p id="p80"></p>
-<h2>Les propriétés et les méthodes du constructeur Array()</h2>
-<h3>Les méthodes push() et pop()</h3>
-<p id="p81"></p>
-<p id="p82"></p>
-<h3>Les méthodes unshift() et shift()</h3>
-<p id="p83"></p>
-<p id="p84"></p>
-<p id="p85"></p>
-<h3>La méthode splice()</h3>
-<p id="p86"></p>
-<p id="p87"></p>
-<p id="p88"></p>
-<h3>La méthode join()</h3>
-<p id="p89"></p>
-<p id="p90"></p>
-<p id="p91"></p>
-<h3>La méthode slice()</h3>
-<p id="p92"></p>
-<p id="p93"></p>
-<h3>La méthode concat()</h3>
-<p id="p94"></p>
-<h3>La méthode includes()</h3>
-<p id="p95"></p>
-<p id="p96"></p>
-<h1>L’objet global Date et les dates en JavaScript</h1>
-<h2>Récupérer la date actuelle</h2>
-<p id="p97"></p>
-<p id="p98"></p>
-<h2>Créer un objet de type date</h2>
-<p id="p99"></p>
-<h2>Les méthodes getters et setters de l’objet Date</h2>
-<h3>Les getters de l’objet Date</h3>
-<p id="p100"></p>
-<h3>Les setters de l’objet Date</h3>
-<p id="p101"></p>
-<h2>Convertir une date au format local</h2>
-<p id="p102"></p>
+<button id="b"></button>
+<p id="p"></p>
+
 </body>
 </html>
