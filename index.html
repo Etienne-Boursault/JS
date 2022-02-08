@@ -9,113 +9,19 @@
     <script async src="javascript/script.js"></script>
 </head>
 <body>
-<h1>Accès aux éléments HTML et modification du contenu</h1>
-<h2>Accéder à un élément à partir de son sélecteur CSS associé</h2>
-<p id="p1">Un paragraphe</p>
-<div>
-    <p>Un paragraphe dans le div</p>
-    <p class="bleu">Un autre paragraphe dans le div</p>
+<h1>EXERCICE #1 : Création d’un convertisseur d’unités</h1>
+<h2>Convertisseur de poids :</h2>
+<div class="form-group">
+    <label>Grammes</label>
+    <input id="grammes" type="number" placeholder="Grammes">
 </div>
-<p>Un autre paragraphe</p>
-<h2>Accéder à un élément en fonction de la valeur de son attribut id</h2>
-<h2>Accéder à un élément en fonction de la valeur de son attribut class</h2>
-<h2>Accéder à un élément en fonction de son identité</h2>
-<h2>Accéder directement à des éléments particuliers avec les propriétés de Document</h2>
-<h2>Accéder au contenu des éléments et le modifier</h2>
-<p id="p2">Un paragraphe</p>
-<div id="d1">
-    <p id="p3">Un paragraphe dans le div</p>
-    <p id="texte">Un autre paragraphe dans le div</p>
+<div class="form-group">
+    <label>Kilos</label>
+    <input id="kilos" type="number" placeholder="Kilos">
 </div>
-<p id="p4">Un autre paragraphe
-    <span style="visibility: hidden">Avec du contenu caché</span>
-</p>
-<p id="p5"></p>
-<h1>Naviguer dans le DOM</h1>
-<h2>Accéder au parent ou à la liste des enfants d’un noeud</h2>
-<div id="d2">
-    <p id="p6">Un paragraphe <span>avec un span</span></p>
-    <div>
-        <p id="p7">Un paragraphe dans le div</p>
-        <p>Un autre paragraphe dans le div</p>
-    </div>
-    <p>Un autre paragraphe</p>
+<div class="form-group">
+    <label>Livres</label>
+    <input id="livres" type="number" placeholder="Livres">
 </div>
-<h2>Accéder à un noeud enfant en particulier à partir d’un noeud parent</h2>
-<p id="p8"></p>
-<h2>Accéder au noeud précédent ou suivant un noeud dans l’architecture DOM</h2>
-<p id="p9">Paragraphe n° 9</p>
-<p id="p10">Paragraphe n° 10 <span>avec un span</span></p>
-<p id="p11">Paragraphe n° 11</p>
-<h2>Obtenir le nom d’un noeud, son type ou son contenu</h2>
-<p id="p12"></p>
-<h1>Ajouter, modifier ou supprimer des éléments du DOM</h1>
-<h2>Créer de nouveaux noeuds et les ajouter dans l’arborescence du DOM</h2>
-<h3>Créer un noeud Element ou un noeud Texte</h3>
-<h3>Insérer un noeud dans le DOM</h3>
-<h2>Déplacer un noeud dans le DOM</h2>
-<h2>Cloner ou remplacer un noeud dans le DOM</h2>
-<h2>Supprimer un noeud du DOM</h2>
-<p id="p14"></p>
-<h1>Manipuler les attributs et les styles des éléments</h1>
-<h2>Tester la présence d’attributs</h2>
-<p id="vide"></p>
-<h2>Récupérer la valeur ou le nom d’un attribut ou définir un attribut</h2>
-<p id="p15"></p>
-<h2>Supprimer un attribut</h2>
-<p id="p16"></p>
-<h1>Gestion d’évènements</h1>
-<h2>Définir des gestionnaires d’évènements</h2>
-<h3>Utiliser les attributs HTML pour gérer un évènement</h3>
-<button onclick="alert('Bouton cliqué')">Cliquez-moi</button>
-<div onmouseover="this.style.backgroundColor='orange'"
-    onmouseout="this.style.backgroundColor='white'">
-    <p>Un paragraphe dans une div</p>
-    <p>Un autre paragraphe dans une div</p>
-</div>
-<h3>Utiliser les propriétés JavaScript pour gérer un évènement</h3>
-<p id="p17">Un premier paragraphe</p>
-<button id="b1">Cliquez-moi</button>
-<div id="d3">
-    <p id="p18">Un paragraphe dans une div</p>
-    <p id="p19">Un autre paragraphe dans une div</p>
-</div>
-<h3>Utiliser la méthode addEventListener() pour gérer un évènement</h3>
-<p id="p20">Un premier paragraphe</p>
-<button id="b2">Cliquez-moi</button>
-<div id="d4">
-    <p id="p21">Un paragraphe dans une div</p>
-    <p id="p22">Un autre paragraphe dans une div</p>
-</div>
-<h2>Supprimer un gestionnaire d’évènements avec removeEventListener()</h2>
-<h1>Propagation des évènements</h1>
-<h2>Présentation du phénomène de propagation des évènements</h2>
-<p id="p23">Un premier paragraphe</p>
-<div id="d5">
-    <p id="p24">Un paragraphe dans une div</p>
-    <p id="p25">Un autre paragraphe dans une div</p>
-</div>
-<h2>Les phases de capture et de bouillonnement</h2>
-<strong>les gestionnaires d’évènements sont par défaut configurés pour ne s’exécuter (ou pour ne
-    « répondre ») que dans la phase de bouillonnement et pour ignorer la phase de capture.</strong>
-<h2>Choisir la phase de déclenchement d’un gestionnaire d’évènements</h2>
-<div id="d6">
-    <p id="p26">Un paragraphe dans une div</p>
-    <p id="p27">Un autre paragraphe dans une div</p>
-</div>
-<h1>Empêcher la propagation d’évènements</h1>
-<h2>Stopper la propagation d’un évènement</h2>
-<div id="d7">
-    <p id="p28">Un paragraphe dans une div</p>
-    <p id="p29">Un autre paragraphe dans une div</p>
-</div>
-<h2>Prévenir le comportement de base d’un évènement</h2>
-<form method="post" action="formualire.php">
-    <label for="prenom">Entrez un prénom</label>
-    <input type="text" name="prenom" id="prenom">
-    <input type="submit" value="Envoyer" id="btn-envoi">
-</form>
-
-<strong>Fin du fichier</strong>
 </body>
 </html>
