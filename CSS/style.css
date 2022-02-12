@@ -1,12 +1,3 @@
 strong{
     color: red;
 }
-
-table {
-    border-collapse: collapse;
-}
-
-th, td {
-    border: black 1px solid;
-    padding: 10px 20px;
-}
