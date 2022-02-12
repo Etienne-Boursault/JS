@@ -2,10 +2,11 @@ strong{
     color: red;
 }
 
-#d1{
-    background-color: #EECC4499;
+table {
+    border-collapse: collapse;
 }
 
-#d2{
-    background-color: #44EEAA99;
+th, td {
+    border: black 1px solid;
+    padding: 10px 20px;
 }
