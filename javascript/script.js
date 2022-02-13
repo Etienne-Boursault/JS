@@ -1,99 +1,90 @@
 'use strict';
 
-// L'asynchrone
-// Introduction à l’asynchrone
-// Les fonctions de rappel : à la base de l’asynchrone en JavaScript
-let p1 = document.getElementById('p1');
-let p2 = document.getElementById('p2');
-setTimeout(function() {p1.innerHTML = 'Message affiché après 5 secondes';},5000)
+// Symboles, itérateurs et générateurs
+// Les symboles et l’objet Symbol
+// Définir des symboles
+const symbole1 = Symbol();
+const symbole2 = Symbol('symbole2');
+const x42 = Symbol(42);
 
-// Cette partie est affiché avant le reste
-p2.innerHTML = 'Suite du script';
+// Créer un symbole global
+const symbole3 = Symbol.for('symbole3');
+document.getElementById('p1').innerHTML = symbole3.toString();
 
-// Les limites des fonctions de rappel : le « callback hell »
-// Des if dans des if => Pas propre
-// Les promesses
-// Créer une promesse avec le constructeur Promise
-const promesse = new Promise((resolve, reject) => {
+const symboleGlobal = Symbol.for('symbole4');
+const clefSymboleGlobal = Symbol.keyFor(symboleGlobal);
+document.getElementById('p2').innerHTML = 'Clef du symbole global : ' + clefSymboleGlobal;
 
-});
+// Protocoles et objets Iterable et Iterateur
+// Le protocole itérable
+let utilisateur = {
+    prenom: 'Pierre',
+    nom: 'Giraud',
+    age: 29,
 
-function loadScript(src) {
-    return new Promise((resolve, reject) => {
-        let script = document.createElement('script');
-        script.src = src;
-        document.head.append(script);
-        script.onload = () => resolve('Fichier ' + src + ' bien chargé');
-        script.onerror = () => reject(new Error('Echec de chargement de ' + src));
-    });
-}
+    // Methode itérateur avec Symbole.iterateur comme clef
+    [Symbol.iterator]() {
+        // Renvoie un tableau contenant les valeurs des propriététés de l'objet
+        let tableau = Object.values(this);
+        let prop = 0;
 
-const promesse1 = loadScript('javascript/boucle.js');
-// const promesse2 = loadScript('javascript/script2.js');
-// Exploiter le résultat d’une promesse avec les méthodes then() et catch()
-const promesse2 = promesse1.then(result => alert(result), error => alert(error));
-
-const promesse3 = loadScript('javascript/script2.js');
-promesse3.catch(alert);
-
-// Le chainage des promesses
-loadScript('javascript/boucle.js')
-.then(result => loadScript('javascript/script2.js', result))
-.then(result2 => loadScript('javascript/script3.js', result2))
-.catch(alert)
-.then(() => alert('Blabla'));
-
-// La composition de promesses
-/*
-Promise.all(([func1(), func2(), func3()]))
-.then(([result1, result2, result3]) => {
-    // Utilisation de result1, result2 et result3
-})*/
-
-// Utiliser async et await pour créer des promesses plus lisibles
-// Le mot clef async
-async function bonjour() {
-    return 'Bonjour';
-}
-bonjour().then(alert);
-
-// Le mot clef await
-async function test() {
-    const promise = new Promise((resolve, reject) => {
-        setTimeout(() => resolve('Ok !'), 2000)
-    });
-
-    let result = await promise;
-    alert(result);
-}
-
-test();
-
-// Utiliser async et await pour réécrire nos promesses + La gestion des erreurs avec la syntaxe async / await
-// Equivalent au code du chainage des promesses
-async function testAwait() {
-    try {
-        const test1 = await loadScript('javascript/boucle.js');
-        alert(test1);
-        const test2 = await loadScript('javascript/blblbl.js');
-        alert(test2);
-        const test3 = await loadScript('javascript/cdcdcd.js');
-        alert(test3);
-    } catch (err) {
-        alert(err);
-        let script = document.head.lastChild;
-        script.remove();
+        return {
+            next() {
+                if (prop < tableau.length) {
+                    return {
+                        value: tableau[prop++],
+                        done: false
+                    };
+                } else {
+                    return {
+                        value: undefined,
+                        done: true
+                    };
+                }
+            }
+        };
     }
+};
+
+let p3 = document.getElementById('p3');
+for (let p of utilisateur) {
+    p3.innerHTML += p;
 }
 
-testAwait();
+// Les générateurs
+// Les fonctions génératrices et l’objet Generator
+function* generateSequence() {
+    yield 1;
+    yield 2;
+    yield 3;
+}
 
-// Chemin critique du rendu et attributs HTML async et defer
-/*
-Le chemin critique du rendu est constitué de 6 grandes étapes :
-    1. La construction de l’arborescence du DOM (Document Object Model) ;
-2. La construction de l’arborescence du CSSOM (CSS Object Model) ;
-3. L’exécution du code JavaScript ;
-4. La construction de l’arbre de rendu ;
-5. La génération de la mise en page ;
-6. La conversion du contenu visible final de la page en pixels.*/
+let generateur = generateSequence();
+// Le mot clef yield et l’utilisation des générateurs
+let p4 = document.getElementById('p4');
+let un = generateur.next();
+p4.innerHTML = un.value;
+
+// La composition de générateurs
+function* generateSequence2() {
+    yield 4;
+    yield* generateSequence();
+    yield 5;
+}
+
+let generateur2 = generateSequence2();
+
+let quatre = generateur2.next();
+let unbis = generateur2.next();
+let deux = generateur2.next();
+let trois = generateur2.next();
+let cinq = generateur2.next();
+let und = generateur2.next();
+
+document.getElementById('p5').innerHTML =
+    quatre.value + '\n' +
+    unbis.value + '\n' +
+    deux.value + '\n' +
+    trois.value + '\n' +
+    cinq.value + '\n' +
+    und.value;
