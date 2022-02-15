@@ -1,90 +1,114 @@
 'use strict';
+// Stockage des données
+// Les cookies
+// Obtenir la liste des cookies et créer un cookie en JavaScript
+document.cookie = 'user=Pierre';
 
-// Symboles, itérateurs et générateurs
-// Les symboles et l’objet Symbol
-// Définir des symboles
-const symbole1 = Symbol();
-const symbole2 = Symbol('symbole2');
-const x42 = Symbol(42);
+// Les options des cookies
+// La portée des cookies : chemin (répertoire) et domaine d’accessibilité
+document.cookie = 'user=Pierre; path=/; domain=localhost';
 
-// Créer un symbole global
-const symbole3 = Symbol.for('symbole3');
-document.getElementById('p1').innerHTML = symbole3.toString();
+// L’âge maximal et la date d’expiration des cookies
+let date = new Date(Date.now() + 86400000);
+date = date.toUTCString();
+document.cookie = 'user=Pierre; path=/; domain=localhost; expires=' + date;
+// ou document.cookie = 'user=Pierre; path=/; domain=localhost; max-age=86400';
 
-const symboleGlobal = Symbol.for('symbole4');
-const clefSymboleGlobal = Symbol.keyFor(symboleGlobal);
-document.getElementById('p2').innerHTML = 'Clef du symbole global : ' + clefSymboleGlobal;
+// Les cookies et la sécurité
+document.cookie = 'user=Pierre; path=/; domain=localhost; expires=' + date + '; secure; samesite=lax';
 
-// Protocoles et objets Iterable et Iterateur
-// Le protocole itérable
-let utilisateur = {
-    prenom: 'Pierre',
-    nom: 'Giraud',
-    age: 29,
+// Modifier ou supprimer un cookie en JavaScript
+// Supprime le cookie en lui passant une date d'expiration passée
+document.cookie = 'user=Pierre; path=/; domain=localhost; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+document.getElementById('p1').innerHTML = document.cookie;
 
-    // Methode itérateur avec Symbole.iterateur comme clef
-    [Symbol.iterator]() {
-        // Renvoie un tableau contenant les valeurs des propriététés de l'objet
-        let tableau = Object.values(this);
-        let prop = 0;
+// L’API Web Storage
+// Utiliser l’API Web Storage – Exemple pratique
+let htmlElement = document.querySelector('html');
+let bgColor = document.getElementById('bgtheme');
 
-        return {
-            next() {
-                if (prop < tableau.length) {
-                    return {
-                        value: tableau[prop++],
-                        done: false
-                    };
-                } else {
-                    return {
-                        value: undefined,
-                        done: true
-                    };
-                }
-            }
-        };
+if (localStorage.getItem('bgtheme')) {
+    updateBg();
+} else {
+    setBg();
+}
+
+function updateBg() {
+    let bg = localStorage.getItem('bgtheme');
+    htmlElement.style.backgroundColor = '#' + bg;
+    bgColor.value = bg;
+}
+
+function setBg() {
+    localStorage.setItem('bgtheme', bgColor.value);
+    updateBg();
+}
+
+bgColor.addEventListener('change', setBg);
+
+// L’API de stockage IndexedDB
+// Ouverture de la connexion à la base de données
+let db = '';
+let openRequest = indexedDB.open('db', 1);
+
+openRequest.onerror = function () {
+    alert('Impossible d\'accéder à IndexedDB');
+};
+
+// Création d’un objet de stockage ou « object store »
+openRequest.onupgradeneeded = function() {
+    db = openRequest.result;
+
+    // Si l'objet de stockage users n'existe pas, on le crée
+    if (!db.objectStoreNames.contains('users')) {
+        db.createObjectStore('users', {keyPath: 'id'});
     }
 };
 
+// Création de requêtes et gestion des résultats
+let p2 = document.getElementById('p2');
 let p3 = document.getElementById('p3');
-for (let p of utilisateur) {
-    p3.innerHTML += p;
-}
-
-// Les générateurs
-// Les fonctions génératrices et l’objet Generator
-function* generateSequence() {
-    yield 1;
-    yield 2;
-    yield 3;
-}
-
-let generateur = generateSequence();
-// Le mot clef yield et l’utilisation des générateurs
 let p4 = document.getElementById('p4');
-let un = generateur.next();
-p4.innerHTML = un.value;
+openRequest.onsuccess = function() {
+    db = openRequest.result;
+    let transaction = db.transaction('users', 'readwrite');
 
-// La composition de générateurs
-function* generateSequence2() {
-    yield 4;
-    yield* generateSequence();
-    yield 5;
-}
+    transaction.oncomplete = function (){
+        p2.innerHTML = 'Transaction terminée';
+    };
+    let users = transaction.objectStore('users');
 
-let generateur2 = generateSequence2();
+    let user = {
+        id: '1',
+        prenom: 'Pierre',
+        mail: 'pierre.giraud@edhec.com',
+        inscription: new Date()
+    };
 
-let quatre = generateur2.next();
-let unbis = generateur2.next();
-let deux = generateur2.next();
-let trois = generateur2.next();
-let cinq = generateur2.next();
-let und = generateur2.next();
+    let ajout = users.add(user);
+    ajout.onsuccess = function() {
+        p3.innerHTML = 'Utilisateur ajoutée avec la clef : ' + ajout.result;
+    };
 
-document.getElementById('p5').innerHTML =
-    quatre.value + '\n' +
-    unbis.value + '\n' +
-    deux.value + '\n' +
-    trois.value + '\n' +
-    cinq.value + '\n' +
-    und.value;
+    ajout.onerror = function() {
+        alert('Erreur : ' + ajout.error);
+    }
+
+    let lire = users.get('1');
+    lire.onsuccess = function() {
+        p4.innerHTML = 'Nom de l\'utilisateur 1 : ' + lire.result.prenom;
+    };
+
+    lire.onerror = function() {
+        alert('Erreur : ' + lire.error);
+    };
+
+    let supprimer = users.delete(1);
+    supprimer.onsuccess = function() {
+        p4.innerHTML = 'Utilisateur supprimé de la base de données';
+    };
+
+    supprimer.onerror = function() {
+        alert('Erreur : ' + supprimer.error);
+    };
+};
