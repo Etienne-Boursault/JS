@@ -1,15 +1,3 @@
 strong{
     color: red;
 }
-
-#c1 {
-    background-color: orange;
-}
-
-canvas {
-    background-color: #EEE;
-}
-
-.imgCanvas {
-    background-image: url("https://www.pierre-giraud.com/wp-content/uploads/2019/06/emoji-smile.png");
-}
